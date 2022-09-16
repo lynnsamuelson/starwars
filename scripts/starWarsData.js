@@ -31,3 +31,11 @@ export const fetchFilmDates = async () => {
   return jsonData
 }
 
+
+// List the planets in order of size (diameter) from smallest to largest
+export const fetchPlanets = async () => {
+  const dataFetch = await fetch (`${API}/planets/`)
+  const jsonData = await dataFetch.json()
+  return jsonData
+}
+

@@ -2,6 +2,7 @@ import {fetchLuke} from "./starWarsData.js"
 import {fetchStarShips} from "./starWarsData.js"
 import {fetchHoth} from "./starWarsData.js"
 import {fetchFilmDates} from "./starWarsData.js"
+import {fetchPlanets} from "./starWarsData.js"
 
 const displayLuke = async () => {
   const data = await fetchLuke()
@@ -99,3 +100,31 @@ document.getElementById('films').innerHTML = html
 
 displayFilms()
 
+// displaying planets in order of size smallest to largest
+const displayPlanets = async () => {
+  const data = await fetchPlanets()
+  // console.log('data', responseData);
+  const unsortedPlanets = data.results
+  // console.log('unsorted",')
+  const sortedPlanets = unsortedPlanets.sort((planet1, planet2)=> planet1.diameter - planet2.diameter)
+  // console.log(sortedPlanets)
+  renderPlanetsToDOM(sortedPlanets)
+
+}
+
+
+const renderPlanetsToDOM = (planets) => {
+  let planetsHtml = '';
+  planets.forEach(planet => planetsHtml += `<p>Name: ${planet.name} </br>Diameter: ${planet.diameter}</p>`);
+  let html = `
+  <article>
+  <section class="card">
+  <h4>Planets by size (smallest to largest)</h4>
+  ${planetsHtml}
+  </section>
+  </article>
+  `
+  document.getElementById('planets').innerHTML = html
+}
+
+displayPlanets()
