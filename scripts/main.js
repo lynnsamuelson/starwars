@@ -1,8 +1,8 @@
-import {fetchLuke} from "./starWarsData.js"
-import {fetchStarShips} from "./starWarsData.js"
-import {fetchHoth} from "./starWarsData.js"
-import {fetchFilmDates} from "./starWarsData.js"
-import {fetchPlanets} from "./starWarsData.js"
+import {fetchLuke, fetchSpecies, fetchStarshipOccupancy, fetchStarShips, fetchFilmDates, fetchPlanets, fetchHoth} from "./starWarsData.js"
+// import {fetchStarShips} from "./starWarsData.js"
+// import {fetchHoth} from "./starWarsData.js"
+// import {fetchFilmDates} from "./starWarsData.js"
+// import {fetchPlanets} from "./starWarsData.js"
 
 const displayLuke = async () => {
   const data = await fetchLuke()
@@ -103,11 +103,8 @@ displayFilms()
 // displaying planets in order of size smallest to largest
 const displayPlanets = async () => {
   const data = await fetchPlanets()
-  // console.log('data', responseData);
   const unsortedPlanets = data.results
-  // console.log('unsorted",')
   const sortedPlanets = unsortedPlanets.sort((planet1, planet2)=> planet1.diameter - planet2.diameter)
-  // console.log(sortedPlanets)
   renderPlanetsToDOM(sortedPlanets)
 
 }
@@ -128,3 +125,51 @@ const renderPlanetsToDOM = (planets) => {
 }
 
 displayPlanets()
+
+// Display a list of species and their language
+
+const displaySpecies = async () => {
+  const data = await fetchSpecies()
+  const species = data.results
+  renderSpeciesToDOM(species)
+}
+
+const renderSpeciesToDOM = (species) => {
+let speciesHtml = '';
+species.forEach(species => speciesHtml += `<p>Name: ${species.name} </br>Language: ${species.language}</p>`)
+let html = `
+  <article>
+  <section class="card">
+  <h4>Star Wars list of Species and their language.</h4>
+  ${speciesHtml}
+  </section>
+  </article>
+  `
+document.getElementById('species').innerHTML = html
+}
+
+displaySpecies()
+
+// List the name and passenger capacity of each Starship
+
+const displayStarShipOccupancy = async () => {
+  const data = await fetchStarshipOccupancy()
+  const occupancy = data.results
+  renderOccupancyToDOM(occupancy)
+}
+
+const renderOccupancyToDOM = (starship) => {
+  let occupancyHtml = '';
+  starship.forEach(starship => occupancyHtml += `<p>Name of Ship: ${starship.name} </br>Passengers: ${starship.passengers}</p>`)
+  let html = `
+  <article>
+  <section class="card">
+  <h4>Occupancy of Starships</h4>
+  ${occupancyHtml}
+  </section>
+  </article>
+  `
+  document.getElementById('occupancy').innerHTML = html
+}
+
+  displayStarShipOccupancy()

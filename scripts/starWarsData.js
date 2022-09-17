@@ -39,3 +39,19 @@ export const fetchPlanets = async () => {
   return jsonData
 }
 
+// Display a list of species and their language
+
+export const fetchSpecies = async () => {
+  const dataFetch = await fetch (`${API}/species/`)
+  const jsonData = await dataFetch.json()
+  return jsonData
+}
+
+// List the name and passenger capacity of each Starship
+
+export const fetchStarshipOccupancy = async () => {
+  const dataFetch = await fetch (`${API}/starships/`)
+  const jsonData = await dataFetch.json()
+  return jsonData
+}
+
